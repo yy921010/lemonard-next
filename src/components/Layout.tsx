@@ -1,27 +1,27 @@
 import Link from 'next/link'
 
+const routes = [
+  {
+    isShown: true,
+    name: '首页',
+    path: '/',
+  },
+  {
+    isShown: true,
+    name: '点播',
+    path: '/vod',
+  },
+  {
+    isShown: true,
+    name: '直播',
+    path: '/vod',
+  },
+]
 export const Layout = ({ children }) => {
-  const routes = [
-    {
-      isShown: true,
-      name: 'home',
-      path: '/',
-    },
-    {
-      isShown: true,
-      name: 'vod',
-      path: '/vod',
-    },
-    {
-      isShown: true,
-      name: 'live',
-      path: '/vod',
-    },
-  ]
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full bg-gray-800 justify-center z-10">
-        <div className="flex items-center justify-between container h-20 mx-auto">
+      <nav className="fixed top-0 left-0 w-full bg-gray-800 justify-center z-20">
+        <div className="flex items-center justify-between container h-20 mx-auto px-6">
           <div className="w-16 h-16 bg-red-400"></div>
           <ul className="flex flex-shrink space-x-8">
             {routes
@@ -35,8 +35,7 @@ export const Layout = ({ children }) => {
               })}
           </ul>
           <div className="flex space-x-2">
-            <div className="cursor-pointer">sign in</div>
-            <div className="cursor-pointer">sign up</div>
+            <div className="cursor-pointer">开始使用</div>
           </div>
         </div>
       </nav>

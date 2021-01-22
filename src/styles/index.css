@@ -6,11 +6,46 @@
 @tailwind components;
 /* Stop purging. */
 
+#__next {
+  @apply flex flex-col absolute top-20 left-0 right-0 bg-gray-900 bottom-0;
+}
 
-#__next{
-  @apply flex flex-col absolute top-20 left-0 right-0 bg-gray-700 bottom-0;
+.h-bg-detail{
+  height: 16rem;
+}
+
+
+@screen sm{
+  .h-bg-detail{
+    height: 18rem;
+  }
+}
+
+@screen md{
+  .h-bg-detail{
+    height: 24rem;
+  }
+}
+
+@screen lg{
+  .h-bg-detail{
+    height: 30rem;
+  }
+}
+
+@screen xl{
+  .h-bg-detail{
+    height: 34rem;
+  }
+}
+
+@screen 2xl{
+  .h-bg-detail{
+    height: 36rem;
+  }
 }
 
 /* Start purging... */
 @tailwind utilities;
 /* Stop purging. */
+
