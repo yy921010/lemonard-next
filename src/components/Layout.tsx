@@ -20,21 +20,21 @@ const routes = [
 export const Layout = ({ children }) => {
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full bg-gray-800 justify-center z-20">
-        <div className="flex items-center justify-between container h-20 mx-auto px-6">
-          <div className="w-16 h-16 bg-red-400"></div>
-          <ul className="flex flex-shrink space-x-8">
+      <nav className="fixed top-0 left-0 w-full bg-black z-20 h-16 bg-opacity-90">
+        <div className="flex items-center justify-center container mx-auto px-6 h-full">
+          <div className="text-2xl">Lemon nard</div>
+          <ul className="flex-shrink space-x-8 hidden">
             {routes
               .filter((item) => item.isShown)
               .map((item) => {
                 return (
-                  <li key={item.name} className="cursor-pointer text-xl">
+                  <li key={item.name} className="cursor-pointer text-base">
                     <Link href={item.path}>{item.name}</Link>
                   </li>
                 )
               })}
           </ul>
-          <div className="flex space-x-2">
+          <div className="space-x-2 hidden">
             <div className="cursor-pointer">开始使用</div>
           </div>
         </div>
