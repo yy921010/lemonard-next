@@ -7,7 +7,7 @@
 /* Stop purging. */
 
 #__next {
-  @apply flex flex-col absolute top-16 left-0 right-0 bg-black bg-opacity-80 h-screen;
+  @apply flex flex-col left-0 right-0 bg-black bg-opacity-80;
 }
 
 .h-bg-detail {

@@ -88,7 +88,7 @@ export default function VodDetail() {
           </div>
         </div>
       </div>
-      <div className="container px-6 space-y-4 mt-6">
+      <div className="container px-6 space-y-4 mt-6 w-full mx-auto">
         <button className="w-full bg-white text-base text-black rounded-full py-3 px-6 hover:bg-gray-300">
           播放
         </button>
