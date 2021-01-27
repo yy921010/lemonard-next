@@ -43,8 +43,10 @@ export const Layout = ({ children }) => {
           !isScrollDown ? 'bg-transparent' : 'bg-black bg-opacity-10'
         }`}
       >
-        <div className="flex items-center justify-center container mx-auto px-6 h-full">
-          <div className="text-md text-gray-100">Lemonard</div>
+        <div className="flex items-center container mx-auto px-6 h-full">
+          <div className="text-md text-gray-100">
+            <img src="/logo.png" alt="" className="w-16" />
+          </div>
           <ul className="flex-shrink space-x-8 hidden">
             {routes
               .filter((item) => item.isShown)
@@ -64,7 +66,9 @@ export const Layout = ({ children }) => {
       <section className="flex flex-col items-center">
         <section className="w-full flex-shrink">{children}</section>
         <footer className="container border-gray-900 w-full h-72 border-solid border-t-2 mt-10 flex flex-col items-center pt-6 bg-gray-800 px-6">
-          <div className="w-20 h-12 bg-red-400"></div>
+          <div className="w-20 h-12">
+            <img src="/logo.png" alt="" className="w-18" />
+          </div>
           <ul className="flex justify-center space-x-8 mt-8">
             <li>gmail</li>
             <li>rss</li>
