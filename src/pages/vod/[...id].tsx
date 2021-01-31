@@ -8,14 +8,7 @@ export default function VodDetail() {
       <Layout>
         <div className="flex flex-col w-full items-center relative">
           <div
-            className="
-          w-full
-          bg-no-repeat
-          bg-cover
-          bg-center
-          h-bg-detail
-          slashed-zero
-          top-0
+            className="w-full bg-no-repeat bg-cover bg-center h-bg-detail slashed-zero top-0
           "
             style={{
               backgroundImage: `
@@ -25,15 +18,7 @@ export default function VodDetail() {
           ></div>
           <div className="container z-10 absolute px-6 flex justify-between bottom-4">
             <div
-              className="
-            poster
-            rounded-md
-            w-36 h-56
-            bg-no-repeat
-            bg-center
-            flex-shrink-0
-            mr-6
-            bg-cover"
+              className="rounded-md w-36 h-56 bg-no-repeat bg-center flex-shrink-0 mr-6 bg-cover"
               style={{
                 backgroundImage: `url(${vodInfo.poster})`,
               }}
@@ -79,6 +64,37 @@ export default function VodDetail() {
                 })
               : []}
           </div>
+        </div>
+        <div className="container mt-16 px-6">
+          <div className="text-base">演员</div>
+          <ul className="flex mt-9 overflow-y-auto">
+            {vodInfo.actors.length > 0
+              ? vodInfo.actors.map((item) => {
+                  return (
+                    <li key={item.id}>
+                      <div
+                        className="rounded-md w-36 h-40 bg-no-repeat bg-center flex-shrink-0 mr-6 bg-cover"
+                        style={{
+                          backgroundImage: `url(${item.poster})`,
+                        }}
+                      ></div>
+                      <div
+                        className="text-sm overflow-ellipsis w-36 whitespace-nowrap overflow-hidden"
+                        title={item.castName}
+                      >
+                        {item.castName}
+                      </div>
+                      <div
+                        className="text-sm overflow-ellipsis w-36 whitespace-nowrap overflow-hidden"
+                        title={item.playName}
+                      >
+                        {item.playName}
+                      </div>
+                    </li>
+                  )
+                })
+              : ''}
+          </ul>
         </div>
       </Layout>
     </>
