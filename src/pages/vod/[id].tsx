@@ -1,7 +1,8 @@
 import { HeadMeta, Layout } from '@/components'
-import { vodInfo } from './data'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import vodInfo from './data'
 
-export default function VodDetail() {
+const vodDetail: React.FC = () => {
   return (
     <>
       <HeadMeta title={vodInfo.title} />
@@ -15,14 +16,14 @@ export default function VodDetail() {
             linear-gradient(rgba(0,0,0,0.70),rgba(0,0,0,0.70))
             ,url(${vodInfo.background})`,
             }}
-          ></div>
+          />
           <div className="container z-10 absolute px-6 flex justify-between bottom-4">
             <div
               className="rounded-md w-36 h-56 bg-no-repeat bg-center flex-shrink-0 mr-6 bg-cover"
               style={{
                 backgroundImage: `url(${vodInfo.poster})`,
               }}
-            ></div>
+            />
             <div className="flex-shrink">
               <div className="text-lg">{vodInfo.title}</div>
               <div className="text-md text-gray-400">{vodInfo.subTitle}</div>
@@ -38,10 +39,16 @@ export default function VodDetail() {
           </div>
         </div>
         <div className="container px-6 space-y-4 mt-6 w-full mx-auto">
-          <button className="w-full bg-white text-base text-black rounded-full py-3 px-6 hover:bg-gray-300 active:bg-gray-300 focus:outline-none ">
+          <button
+            type="button"
+            className="w-full bg-white text-base text-black rounded-full py-3 px-6 hover:bg-gray-300 active:bg-gray-300 focus:outline-none "
+          >
             播放
           </button>
-          <button className="w-full bg-black text-base text-white bg-opacity-0 rounded-full py-3 px-6 focus:outline-none border border-solid border-white active:bg-gray-100">
+          <button
+            type="button"
+            className="w-full bg-black text-base text-white bg-opacity-0 rounded-full py-3 px-6 focus:outline-none border border-solid border-white active:bg-gray-100"
+          >
             收藏
           </button>
         </div>
@@ -77,7 +84,7 @@ export default function VodDetail() {
                         style={{
                           backgroundImage: `url(${item.poster})`,
                         }}
-                      ></div>
+                      />
                       <div
                         className="text-sm overflow-ellipsis w-36 whitespace-nowrap overflow-hidden"
                         title={item.castName}
@@ -99,4 +106,19 @@ export default function VodDetail() {
       </Layout>
     </>
   )
+}
+
+export default vodDetail
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: true,
+  }
+}
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  return {
+    props: {},
+  }
 }

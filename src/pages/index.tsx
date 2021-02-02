@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { Layout } from '@/components'
-export default function Home() {
+
+export default function Home(): JSX.Element {
   return (
     <>
       <Head>
@@ -9,7 +10,7 @@ export default function Home() {
       </Head>
       <Layout>
         <div className="container mx-auto">
-          <footer></footer>
+          <footer />
         </div>
       </Layout>
     </>

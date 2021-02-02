@@ -1,4 +1,4 @@
-export const vodInfo = {
+const vodInfo = {
   title: '旺达幻视',
   subTitle: 'WandaVision',
   time: '2021',
@@ -96,3 +96,4 @@ export const vodInfo = {
     },
   ],
 }
+export default vodInfo

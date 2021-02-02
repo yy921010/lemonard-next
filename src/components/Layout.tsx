@@ -20,7 +20,7 @@ const routes = [
   },
 ]
 
-export const Layout = ({ children }) => {
+const Layout: React.FC = ({ children }) => {
   const [isScrollDown, setScrollDown] = useState<boolean>(false)
   const { run } = useDebounceFn(
     () => {
@@ -34,7 +34,7 @@ export const Layout = ({ children }) => {
     return () => {
       window.removeEventListener('scroll', run)
     }
-  }, [])
+  }, [run])
 
   return (
     <>
@@ -95,3 +95,5 @@ export const Layout = ({ children }) => {
     </>
   )
 }
+
+export default Layout

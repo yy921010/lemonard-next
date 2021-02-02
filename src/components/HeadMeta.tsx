@@ -3,14 +3,13 @@ import Head from 'next/head'
 
 interface HeaderMeta {
   title: string
-  [key: string]: any
 }
 
-export const HeadMeta: React.FC<HeaderMeta> = ({ title }) => {
-  return (
-    <Head>
-      <title>{title}</title>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
-  )
-}
+const HeadMeta: React.FC<HeaderMeta> = ({ title }) => (
+  <Head>
+    <title>{title}</title>
+    <link rel="icon" href="/favicon.ico" />
+  </Head>
+)
+
+export default HeadMeta
