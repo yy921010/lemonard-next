@@ -1,7 +1,17 @@
 import { HeadMeta, Layout } from '@/components'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+import ReactSlick from 'react-slick'
 import vodInfo from './data'
 
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 3,
+  slidesToScroll: 3,
+}
 const vodDetail: React.FC = () => {
   return (
     <>
@@ -52,7 +62,7 @@ const vodDetail: React.FC = () => {
             收藏
           </button>
         </div>
-        <div className="container mt-16 px-6">
+        <div className="container mt-16 px-6 mx-auto">
           <div className="text-base mb-6">剧集</div>
           <div className="grid grid-cols-2 gap-4 justify-items-center">
             {vodInfo.seasons.length > 0
@@ -72,15 +82,15 @@ const vodDetail: React.FC = () => {
               : []}
           </div>
         </div>
-        <div className="container mt-16 px-6">
+        <div className="container mt-16 px-6 mx-auto">
           <div className="text-base">演员</div>
-          <ul className="flex mt-9 overflow-y-auto">
+          <ReactSlick {...settings}>
             {vodInfo.actors.length > 0
               ? vodInfo.actors.map((item) => {
                   return (
                     <li key={item.id}>
                       <div
-                        className="rounded-md w-36 h-40 bg-no-repeat bg-center flex-shrink-0 mr-6 bg-cover"
+                        className="rounded-md w-28 h-32 bg-no-repeat bg-center flex-shrink-0 mr-6 bg-cover"
                         style={{
                           backgroundImage: `url(${item.poster})`,
                         }}
@@ -101,7 +111,7 @@ const vodDetail: React.FC = () => {
                   )
                 })
               : ''}
-          </ul>
+          </ReactSlick>
         </div>
       </Layout>
     </>

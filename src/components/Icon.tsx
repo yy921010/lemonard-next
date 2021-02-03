@@ -1,15 +1,15 @@
 interface Props {
   name: string
   type?: 'fill' | 'line'
-  size?: number
+  className?: string
+  onClick?: React.MouseEventHandler<HTMLElement>
 }
-const Icon: React.FC<Props> = ({ name, type, size }) => {
+const Icon: React.FC<Props> = ({ name, type = 'line', className, onClick }) => {
   return (
     <i
-      className={`ri-${name}-${type || 'line'}`}
-      style={{
-        fontSize: size,
-      }}
+      className={`ri-${name}-${type} ${className}`}
+      onClick={onClick}
+      aria-hidden="true"
     />
   )
 }
