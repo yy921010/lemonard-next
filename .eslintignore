@@ -59,3 +59,4 @@ package.json
 *.scss.d.ts
 craco.config.js
 .eslintrc.js
+next.config.js

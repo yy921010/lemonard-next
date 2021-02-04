@@ -12,18 +12,6 @@
     "test": "jest",
     "test-all": "npm run lint && npm run type-check && npm run test"
   },
-  "dependencies": {
-    "ahooks": "^2.9.4",
-    "autoprefixer": "^10.2.1",
-    "next": "^10.0.0",
-    "postcss": "^8.2.4",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-slick": "^0.28.0",
-    "remixicon": "^2.5.0",
-    "slick-carousel": "^1.8.1",
-    "tailwindcss": "^2.0.2"
-  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
@@ -36,17 +24,39 @@
       "npm run format"
     ]
   },
+  "babelMacros": {
+    "twin": {
+      "preset": "styled-components"
+    }
+  },
+  "dependencies": {
+    "ahooks": "^2.9.4",
+    "autoprefixer": "^10.2.1",
+    "next": "^10.0.0",
+    "postcss": "^8.2.4",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-slick": "^0.28.0",
+    "remixicon": "^2.5.0",
+    "slick-carousel": "^1.8.1",
+    "styled-components": "^5.2.1",
+    "tailwindcss": "^2.0.2",
+    "twin.macro": "^2.2.0"
+  },
   "devDependencies": {
     "@testing-library/react": "^10.0.1",
     "@types/jest": "^25.1.4",
     "@types/node": "^14.14.22",
-    "@types/react": "^17.0.0",
+    "@types/react": "^17.0.1",
     "@types/react-slick": "^0.23.4",
+    "@types/styled-components": "^5.1.7",
     "@typescript-eslint/eslint-plugin": "^4.14.2",
     "@typescript-eslint/parser": "^4.14.2",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^25.2.3",
+    "babel-plugin-macros": "^3.0.1",
     "babel-plugin-module-resolver": "^4.1.0",
+    "babel-plugin-styled-components": "^1.12.0",
     "eslint": "^7.19.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^6.15.0",
@@ -63,6 +73,8 @@
     "jest-watch-typeahead": "^0.5.0",
     "lint-staged": "^10.0.10",
     "prettier": "^2.2.1",
+    "react-is": "^16.13.1",
     "typescript": "^4.1.3"
   }
 }
+
