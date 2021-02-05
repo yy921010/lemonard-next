@@ -6,8 +6,8 @@ import { GlobalStyles } from '@/components'
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <>
-      <Component {...pageProps} />
       <GlobalStyles />
+      <Component {...pageProps} />
     </>
   )
 }

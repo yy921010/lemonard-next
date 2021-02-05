@@ -1,49 +1,9 @@
-@tailwind base;
-
-/* Write your own custom base styles here */
-
-/* Start purging... */
-@tailwind components;
-/* Stop purging. */
-
 #__next {
-  @apply flex flex-col left-0 right-0 bg-black bg-opacity-80;
+  display: flex;
+  flex-direction: column;
+  left:0;
+  right: 0;
+  background-color: rgba(0,0,0,0.8)
 }
 
-.h-bg-detail {
-  height: 20rem;
-}
 
-@screen sm {
-  .h-bg-detail {
-    height: 18rem;
-  }
-}
-
-@screen md {
-  .h-bg-detail {
-    height: 24rem;
-  }
-}
-
-@screen lg {
-  .h-bg-detail {
-    height: 30rem;
-  }
-}
-
-@screen xl {
-  .h-bg-detail {
-    height: 34rem;
-  }
-}
-
-@screen 2xl {
-  .h-bg-detail {
-    height: 36rem;
-  }
-}
-
-/* Start purging... */
-@tailwind utilities;
-/* Stop purging. */

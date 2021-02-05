@@ -40,7 +40,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head />
-        <body className="select-none text-gray-50">
+        <body>
           <Main />
           <NextScript />
         </body>

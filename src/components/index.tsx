@@ -1,6 +1,6 @@
 export { default as Layout } from './Layout'
 export { default as HeadMeta } from './HeadMeta'
 export { default as Icon } from './Icon'
-export { default as NavBar } from './NavBar'
+export { default as NavBar } from './Navbar'
 export { default as Footer } from './Footer'
 export { default as GlobalStyles } from './GlobalStyles'
