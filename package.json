@@ -27,7 +27,7 @@
   "babelMacros": {
     "twin": {
       "preset": "styled-components",
-      "debug":true
+      "debug": true
     }
   },
   "dependencies": {

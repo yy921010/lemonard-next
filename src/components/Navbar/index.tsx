@@ -9,8 +9,29 @@ import {
   TopLogo,
   SideBarTop,
   MenuList,
+  MenuItem,
+  MainMenus,
+  MainMenuItem,
 } from './styled'
 import { Icon } from '..'
+
+const menus = [
+  {
+    url: '/home',
+    text: '主页',
+    id: '2',
+  },
+  {
+    url: '/film',
+    text: '电影',
+    id: '4',
+  },
+  {
+    url: '/series',
+    text: '电视剧',
+    id: '1',
+  },
+]
 
 const NavBar: React.FC = () => {
   const [isScrollDown, setScrollDown] = useState<boolean>(false)
@@ -36,28 +57,72 @@ const NavBar: React.FC = () => {
   const handleSearch = () => {
     console.log('ssss')
   }
+
+  const targetPages = (url) => {
+    console.log('targetPages')
+    setShowMenu(false)
+  }
   return (
     <Nav isShowBlack={isScrollDown}>
       <NavContainer>
         <Icon
           name="menu"
-          tw="text-2xl cursor-pointer text-gray-50"
+          tw="text-2xl cursor-pointer text-gray-50 lg:hidden"
           onClick={handleShowMenu}
         />
         <img tw="w-16" src="/logo.png" alt="logo" />
-        <Icon
-          name="search"
-          tw="text-2xl cursor-pointer text-gray-50"
-          onClick={handleSearch}
-        />
+        <MainMenus>
+          {menus &&
+            menus.map((item) => {
+              return (
+                <MainMenuItem
+                  key={item.id}
+                  onClick={(event) => {
+                    targetPages(item.url)
+                    event.stopPropagation()
+                  }}
+                >
+                  {item.text}
+                </MainMenuItem>
+              )
+            })}
+        </MainMenus>
+        {!isShowMenu ? (
+          <Icon
+            name="search"
+            tw="text-2xl cursor-pointer text-gray-50"
+            onClick={handleSearch}
+          />
+        ) : (
+          ''
+        )}
       </NavContainer>
       {isShowMenu ? (
-        <NavSideBar>
+        <NavSideBar
+          onClick={() => {
+            setShowMenu(false)
+          }}
+        >
           <SideBarTop>
             <TopLogo>
               <img tw="w-16" src="/logo.png" alt="logo" />
             </TopLogo>
-            <MenuList>ss</MenuList>
+            <MenuList>
+              {menus &&
+                menus.map((item) => {
+                  return (
+                    <MenuItem
+                      key={item.id}
+                      onClick={(event) => {
+                        targetPages(item.url)
+                        event.stopPropagation()
+                      }}
+                    >
+                      {item.text}
+                    </MenuItem>
+                  )
+                })}
+            </MenuList>
           </SideBarTop>
         </NavSideBar>
       ) : (
