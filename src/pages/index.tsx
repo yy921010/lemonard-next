@@ -5,13 +5,11 @@ export default function Home(): JSX.Element {
   return (
     <>
       <Head>
-        <title>lemon nard</title>
+        <title>lemonnard</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <div className="container mx-auto">
-          <footer />
-        </div>
+        <div className="container mx-auto" />
       </Layout>
     </>
   )

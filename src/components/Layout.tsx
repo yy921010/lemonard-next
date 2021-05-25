@@ -1,14 +1,15 @@
-import tw from 'twin.macro'
+import 'twin.macro'
+import React, { ReactNode } from 'react'
 import { NavBar, Footer } from '.'
 
-const Layout: React.FC = ({ children }) => {
+const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <div>
       <NavBar />
-      <section className="flex flex-col items-center">
-        <section className="w-full flex-shrink">{children}</section>
-        <Footer />
+      <section tw="bg-black bg-opacity-90 text-gray-100 flex-1 pb-20">
+        {children}
       </section>
+      <Footer />
     </div>
   )
 }

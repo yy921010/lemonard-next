@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "lemon_nard_web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -27,7 +27,7 @@
   "babelMacros": {
     "twin": {
       "preset": "styled-components",
-      "debug": true
+      "debug": false
     }
   },
   "dependencies": {

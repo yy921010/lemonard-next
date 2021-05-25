@@ -7,6 +7,7 @@ import Document, {
   DocumentInitialProps,
 } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
+import 'twin.macro'
 
 class MyDocument extends Document {
   static async getInitialProps(
