@@ -5,5 +5,4 @@ export const getImageUrl = (images: Image[] = [], imgType: number): string => {
   return image ? image.href : ''
 }
 
-export const isEmpty = (val = {}) =>
-  val == null || !(Object.keys(val) || val).length
+export const isEmpty = (val) => val == null || !(Object.keys(val) || val).length
