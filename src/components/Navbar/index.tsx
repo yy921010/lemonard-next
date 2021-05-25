@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { useEffect, useState } from 'react'
 import { useDebounceFn } from 'ahooks'
-import tw from 'twin.macro'
+import 'twin.macro'
 import {
   Nav,
   NavContainer,
