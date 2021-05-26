@@ -53,7 +53,7 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': [
       'error',
       { functions: false, classes: false, variables: true },
-    ],
+    ]
   },
   settings: {
     'import/resolver': {

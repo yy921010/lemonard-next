@@ -1,135 +1,280 @@
-import { HeadMeta, Layout } from '@/components'
-import { GetStaticPaths, GetStaticProps } from 'next'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-import ReactSlick from 'react-slick'
-import tw from 'twin.macro'
-import vodInfo from './data'
+import {
+  HeadMeta,
+  Layout,
+  Slick,
+  SlickList,
+  Button,
+  Icon,
+  Poster,
+} from '@/components'
+import { GetServerSideProps } from 'next'
+import tw, { styled, css } from 'twin.macro'
+import { QUERY_VOD_DETAIL, client } from '@/graphql'
+import { Episode, Vod } from '@/interfaces'
+import { useEffect, useState } from 'react'
+import { getImageUrl } from '@/utils'
+
+interface VodQueryData {
+  vod: Vod
+}
+interface VodQueryVar {
+  id: string
+}
+interface BackgroundProps {
+  background?: string
+}
 
 const settings = {
-  dots: true,
-  infinite: true,
+  dots: false,
+  infinite: false,
   speed: 500,
-  slidesToShow: 3,
-  slidesToScroll: 3,
+  slidesToShow: 4,
+  slidesToScroll: 4,
+  initialSlide: 0,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 4,
+      },
+    },
+    {
+      breakpoint: 758,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+      },
+    },
+  ],
 }
-const vodDetail: React.FC = () => {
+const DetailBackground = styled.div(({ background }: BackgroundProps) => [
+  tw`w-full bg-no-repeat bg-cover bg-center slashed-zero top-0 relative`,
+  css`
+    background-image: linear-gradient(rgba(0, 0, 0, 0), #181818),
+      url(${background});
+    padding-top: 56.25%;
+  `,
+])
+
+const DetailBaseInfo = tw.div`
+md:absolute
+w-full
+top-0 left-0 h-full p-12`
+
+const DetailMeta = tw.div`
+  relative
+  -bottom-3/4
+  md:(grid
+    grid-cols-5
+    gap-8
+    absolute
+    -bottom-10
+    )
+  xl:bottom-20
+`
+
+const DetailTitle = tw.div`
+    absolute
+    top-1/4
+    hidden
+    md:(
+      block
+      )`
+const Title = tw.h1`text-3xl md:text-4xl`
+const SubTitle = tw.h4`text-xs md:text-base text-gray-400`
+const DetailSmallTitle = tw.h1`
+  md:hidden
+  mb-12
+`
+
+const DetailActions = tw.div`
+  flex flex-col space-y-6
+  mb-12
+  md:mb-12
+`
+
+const VodCenterWrap = tw.div`col-span-3`
+const VodMeta = tw.div`flex text-base`
+const Genre = tw.span`text-sm text-c34`
+const Rating = tw.span`text-c36 text-sm mr-2 flex items-center`
+const Year = tw.span`text-c34 text-sm mr-2`
+const Country = tw.span`text-c34 text-sm mr-2`
+const VodDescription = tw.div`
+  w-full
+ space-x-1 leading-6 overflow-y-auto md:h-24 text-c20`
+
+const CastList = tw.div`text-xs md:text-base`
+
+const VodMetaTag = tw.div`flex space-x-4 mb-2.5 flex-wrap`
+const VodMetaTagLabel = tw.div`text-gray-500`
+const VodMetaTagItems = tw.div``
+const About = tw.div`
+  bg-c19
+
+
+`
+
+const SeasonWrap = tw.div`md:px-8 lg:px-10 xl:px-14 box-border overflow-hidden my-20`
+
+const AboutTitle = tw.div``
+
+const VodDetail = ({ vod }: { vod: Vod }) => {
+  const [seasonEpisodes, setSeasonEpisode] = useState<Episode[]>([])
+  const [defaultSeasonId, setDefaultSeasonId] = useState<string>('' as string)
+
+  useEffect(() => {
+    if (vod.type === 1 && vod.seasons.length > 0) {
+      const [firstSeason] = vod.seasons
+      setSeasonEpisode(firstSeason.episodes)
+      setDefaultSeasonId(firstSeason.id)
+    }
+  }, [vod])
+
+  const startPlay = () => {
+    console.log(1)
+  }
+
+  const addWatch = () => {
+    console.log(2)
+  }
+
+  const onSelect = (seasonId: unknown) => {
+    const chosenSeason = vod.seasons.find((season) => season.id === seasonId)
+    if (chosenSeason) {
+      setSeasonEpisode(chosenSeason.episodes)
+    }
+  }
   return (
     <>
-      <HeadMeta title={vodInfo.title} />
+      <HeadMeta title={vod.title} />
       <Layout>
-        <div tw="flex flex-col w-full items-center relative">
-          <div
-            tw="w-full bg-no-repeat bg-cover bg-center slashed-zero top-0
-          "
-            style={{
-              backgroundImage: `
-            linear-gradient(rgba(0,0,0,0.70),rgba(0,0,0,0.70))
-            ,url(${vodInfo.background})`,
-            }}
-          />
-          <div tw="container z-10 absolute px-6 flex justify-between bottom-4">
-            <div
-              tw="rounded-md w-36 h-56 bg-no-repeat bg-center flex-shrink-0 mr-6 bg-cover"
-              style={{
-                backgroundImage: `url(${vodInfo.poster})`,
-              }}
-            />
-            <div tw="flex-shrink">
-              <div tw="text-lg">{vodInfo.title}</div>
-              <div tw="text-gray-400">{vodInfo.subTitle}</div>
-              <div tw=" text-gray-400 text-sm space-x-1 mt-1">
-                <span>{vodInfo.time}</span>
-                <span>{vodInfo.rate}</span>
-                <span>{vodInfo.language}</span>
-              </div>
-              <div tw="text-gray-300 text-sm space-x-1 mt-2 leading-4 overflow-y-auto h-28">
-                {vodInfo.description}
-              </div>
-            </div>
-          </div>
+        <div tw="relative">
+          <DetailBackground background={getImageUrl(vod.images, 14)}>
+            <DetailBaseInfo>
+              <DetailTitle>
+                <Title>{vod.title}</Title>
+                <SubTitle>{vod.originTitle}</SubTitle>
+              </DetailTitle>
+              <DetailMeta>
+                <DetailSmallTitle>
+                  <Title>{vod.title}</Title>
+                  <SubTitle>{vod.originTitle}</SubTitle>
+                </DetailSmallTitle>
+                <DetailActions>
+                  <Button primary>
+                    <Icon
+                      name="play"
+                      tw="text-xs mr-2 md:text-xl"
+                      type="fill"
+                      onClick={startPlay}
+                    />
+                    播放
+                  </Button>
+                  <Button onClick={addWatch}>
+                    <Icon name="check" tw="text-xs md:text-xl" type="fill" />
+                    添加列表
+                  </Button>
+                </DetailActions>
+                <VodCenterWrap>
+                  <VodDescription> {vod.introduce}</VodDescription>
+                  <VodMeta>
+                    <Genre>
+                      {vod.genres.map((genre) => {
+                        return `${genre.name} ·`
+                      })}
+                    </Genre>
+                    <Year>{vod.year}</Year>
+                    <Rating>
+                      <Icon name="star" tw="text-sm mr-1" type="fill" />
+                      {vod.rating}
+                    </Rating>
+                    <Country>
+                      {vod.countries.map((item) => item.name).toString()}
+                    </Country>
+                  </VodMeta>
+                </VodCenterWrap>
+                <CastList>
+                  <VodMetaTag>
+                    <VodMetaTagLabel>演员:</VodMetaTagLabel>
+                    {vod.castStaffs.map((subItem) => {
+                      return (
+                        <VodMetaTagItems key={subItem.id}>
+                          {subItem.name}
+                        </VodMetaTagItems>
+                      )
+                    })}
+                  </VodMetaTag>
+                </CastList>
+              </DetailMeta>
+            </DetailBaseInfo>
+          </DetailBackground>
         </div>
-        <div tw="container px-6 space-y-4 mt-6 w-full mx-auto">
-          <button
-            type="button"
-            tw="w-full bg-white text-base text-black rounded-full py-3 px-6 hover:bg-gray-300 active:bg-gray-300 focus:outline-none "
-          >
-            播放
-          </button>
-          <button
-            type="button"
-            tw="w-full bg-black text-base text-white bg-opacity-0 rounded-full py-3 px-6 focus:outline-none border border-solid border-white active:bg-gray-100"
-          >
-            收藏
-          </button>
-        </div>
-        <div tw="container mt-16 px-6 mx-auto">
-          <div tw="text-base mb-6">剧集</div>
-          <div tw="grid grid-cols-2 gap-4 justify-items-center">
-            {vodInfo.seasons.length > 0
-              ? vodInfo.seasons.map((item) => {
-                  return (
-                    <div
-                      tw="h-40 w-full bg-no-repeat bg-cover bg-center rounded-md flex justify-center items-center text-gray-300"
-                      key={item.seasonNum}
-                      style={{
-                        backgroundImage: `url(${item.poster})`,
-                      }}
-                    >
-                      {item.title || item.seasonNum}
+        <SeasonWrap>
+          <Slick {...settings}>
+            {vod.seasons.length > 0 ? (
+              Array.isArray(seasonEpisodes) &&
+              seasonEpisodes.map((episode) => {
+                return (
+                  <div key={episode.id} tw="cursor-pointer">
+                    <Poster
+                      src={getImageUrl(episode.images, 16)}
+                      aspectRatio={16 / 9}
+                      tw="mr-1 sm:mr-2 md:mr-3 mb-2"
+                    />
+                    <div tw="mx-0.5">
+                      <div tw="text-c32">{episode.episodeNumber}</div>
+                      <div tw="text-c31">{episode.title}</div>
+                      <div tw="text-c34">{episode.introduce}</div>
                     </div>
-                  )
-                })
-              : []}
-          </div>
-        </div>
-        <div tw="container mt-16 px-6 mx-auto">
-          <div tw="text-base">演员</div>
-          <ReactSlick {...settings}>
-            {vodInfo.actors.length > 0
-              ? vodInfo.actors.map((item) => {
-                  return (
-                    <li key={item.id}>
-                      <div
-                        tw="rounded-md w-28 h-32 bg-no-repeat bg-center flex-shrink-0 mr-6 bg-cover"
-                        style={{
-                          backgroundImage: `url(${item.poster})`,
-                        }}
-                      />
-                      <div
-                        tw="text-sm overflow-ellipsis w-36 whitespace-nowrap overflow-hidden"
-                        title={item.castName}
-                      >
-                        {item.castName}
-                      </div>
-                      <div
-                        tw="text-sm overflow-ellipsis w-36 whitespace-nowrap overflow-hidden"
-                        title={item.playName}
-                      >
-                        {item.playName}
-                      </div>
-                    </li>
-                  )
-                })
-              : ''}
-          </ReactSlick>
-        </div>
+                  </div>
+                )
+              })
+            ) : (
+              <></>
+            )}
+          </Slick>
+        </SeasonWrap>
+        <SlickList
+          id="ssss"
+          title="片花"
+          onMore={() => {
+            console.log(3)
+          }}
+        >
+          {vod.playSources.length > 0 ? (
+            vod.playSources.map((playSource) => {
+              return (
+                <div key={playSource.id} tw="cursor-pointer">
+                  <Poster
+                    src="getImageUrl(playSource.images, 10)"
+                    aspectRatio={16 / 9}
+                    tw="mx-0.5 sm:mx-1 md:mx-1.5 mb-2"
+                  />
+                </div>
+              )
+            })
+          ) : (
+            <></>
+          )}
+        </SlickList>
+        <About>关于</About>
       </Layout>
     </>
   )
 }
 
-export default vodDetail
+export default VodDetail
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { query } = context
+  const { data } = await client.query<VodQueryData, VodQueryVar>({
+    query: QUERY_VOD_DETAIL,
+    variables: { id: query.id as string },
+  })
   return {
-    paths: [],
-    fallback: true,
-  }
-}
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  return {
-    props: {},
+    props: {
+      vod: data.vod,
+    },
   }
 }
