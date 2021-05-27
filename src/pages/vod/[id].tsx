@@ -111,8 +111,6 @@ const VodMetaTagLabel = tw.div`text-gray-500`
 const VodMetaTagItems = tw.div``
 const About = tw.div`
   bg-c19
-
-
 `
 
 const SeasonWrap = tw.div`md:px-8 lg:px-10 xl:px-14 box-border overflow-hidden my-20`

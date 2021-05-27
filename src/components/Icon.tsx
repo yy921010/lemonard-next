@@ -1,13 +1,13 @@
 import React from 'react'
 
-interface Props {
+type IconProps = {
   name: string
   type?: 'fill' | 'line'
   className?: string
   onClick?: React.MouseEventHandler<HTMLElement>
 }
 
-const Icon: React.FC<Props> = ({ name, type = 'line', className, onClick }) => {
+const Icon: React.VFC<IconProps> = ({ name, type, className, onClick }) => {
   return (
     <i
       className={
@@ -17,6 +17,11 @@ const Icon: React.FC<Props> = ({ name, type = 'line', className, onClick }) => {
       aria-hidden="true"
     />
   )
+}
+
+Icon.defaultProps = {
+  className: '',
+  type: 'fill',
 }
 
 export default Icon

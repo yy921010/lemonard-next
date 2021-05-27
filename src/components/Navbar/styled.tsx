@@ -5,15 +5,17 @@ interface NavbarProps {
 }
 
 export const Nav = styled.nav(({ isShowBlack }: NavbarProps) => [
-  tw`fixed top-0 left-0 w-full z-20 h-20`,
-  !isShowBlack ? tw`bg-transparent` : tw`bg-black bg-opacity-90`,
+  tw`fixed top-0 left-0 w-full z-20 h-12 shadow-xl transition`,
+  !isShowBlack
+    ? tw`bg-transparent`
+    : tw`bg-black bg-opacity-30 backdrop-filter backdrop-blur backdrop-saturate-50`,
 ])
 
 export const NavContainer = tw.div`flex items-center justify-between px-4 h-full mx-auto container`
 
-export const NavSideBar = tw.div`fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-30 flex`
+export const NavSideBar = tw.div`fixed top-0 left-0 w-full h-full bg-black bg-opacity-30 backdrop-filter backdrop-blur backdrop-saturate-50 z-30 flex`
 
-export const SideBarTop = tw.div`w-72 bg-opacity-90 bg-black`
+export const SideBarTop = tw.div`w-72 bg-black bg-opacity-30 backdrop-filter backdrop-blur backdrop-saturate-50`
 
 export const TopLogo = tw.div`h-20 flex items-center px-6 border-b-2 border-gray-800`
 

@@ -1,4 +1,3 @@
-import '../styles/index.css'
 import 'remixicon/fonts/remixicon.css'
 import { AppProps } from 'next/app'
 import { GlobalStyles } from '@/components'

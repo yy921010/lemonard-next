@@ -41,7 +41,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head />
-        <body>
+        <body tw="flex min-height[100vh] flex-col">
           <Main />
           <NextScript />
         </body>

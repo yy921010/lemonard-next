@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { useEffect, useState } from 'react'
 import { useDebounceFn } from 'ahooks'
 import 'twin.macro'
@@ -40,7 +39,7 @@ const NavBar: React.FC = () => {
     () => {
       setScrollDown(window.pageYOffset > 40)
     },
-    { wait: 50 }
+    { wait: 50, leading: true }
   )
 
   useEffect(() => {
