@@ -62,40 +62,43 @@ const NavBar: React.FC = () => {
     setShowMenu(false)
   }
   return (
-    <Nav isShowBlack={isScrollDown}>
-      <NavContainer>
-        <Icon
-          name="menu"
-          tw="text-2xl cursor-pointer text-gray-50 lg:hidden"
-          onClick={handleShowMenu}
-        />
-        <img tw="w-16" src="/logo.png" alt="logo" />
-        <MainMenus>
-          {menus &&
-            menus.map((item) => {
-              return (
-                <MainMenuItem
-                  key={item.id}
-                  onClick={(event) => {
-                    targetPages(item.url)
-                    event.stopPropagation()
-                  }}
-                >
-                  {item.text}
-                </MainMenuItem>
-              )
-            })}
-        </MainMenus>
-        {!isShowMenu ? (
+    <>
+      <Nav isShowBlack={isScrollDown}>
+        <NavContainer>
           <Icon
-            name="search"
-            tw="text-2xl cursor-pointer text-gray-50"
-            onClick={handleSearch}
+            name="menu"
+            tw="text-2xl cursor-pointer text-gray-50 lg:hidden"
+            onClick={handleShowMenu}
           />
-        ) : (
-          ''
-        )}
-      </NavContainer>
+          <img tw="w-16" src="/logo.png" alt="logo" />
+          <MainMenus>
+            {menus &&
+              menus.map((item) => {
+                return (
+                  <MainMenuItem
+                    key={item.id}
+                    onClick={(event) => {
+                      targetPages(item.url)
+                      event.stopPropagation()
+                    }}
+                  >
+                    {item.text}
+                  </MainMenuItem>
+                )
+              })}
+          </MainMenus>
+          {!isShowMenu ? (
+            <Icon
+              name="search"
+              type="line"
+              tw="text-2xl cursor-pointer text-gray-50"
+              onClick={handleSearch}
+            />
+          ) : (
+            ''
+          )}
+        </NavContainer>
+      </Nav>
       {isShowMenu ? (
         <NavSideBar
           onClick={() => {
@@ -104,6 +107,10 @@ const NavBar: React.FC = () => {
         >
           <SideBarTop>
             <TopLogo>
+              <Icon
+                tw="text-2xl cursor-pointer text-gray-50 lg:hidden mr-2"
+                name="menu"
+              />
               <img tw="w-16" src="/logo.png" alt="logo" />
             </TopLogo>
             <MenuList>
@@ -127,7 +134,7 @@ const NavBar: React.FC = () => {
       ) : (
         ''
       )}
-    </Nav>
+    </>
   )
 }
 

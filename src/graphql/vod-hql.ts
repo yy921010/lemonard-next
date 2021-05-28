@@ -65,4 +65,21 @@ export const QUERY_VOD_DETAIL = gql`
     }
   }
 `
-export default {}
+
+export const QUERY_VODS = gql`
+  query getVods($offset: Int, $limit: Int) {
+    vods(offset: $offset, limit: $limit) {
+      id
+      title
+      subtitle
+      images {
+        href
+        type
+      }
+      genres {
+        name
+        id
+      }
+    }
+  }
+`

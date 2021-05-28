@@ -6,6 +6,7 @@ import {
   Button,
   Icon,
   Poster,
+  Select,
 } from '@/components'
 import { GetServerSideProps } from 'next'
 import tw, { styled, css } from 'twin.macro'
@@ -60,7 +61,7 @@ const DetailBackground = styled.div(({ background }: BackgroundProps) => [
 const DetailBaseInfo = tw.div`
 md:absolute
 w-full
-top-0 left-0 h-full p-12`
+top-0 left-0 h-full md:px-12`
 
 const DetailMeta = tw.div`
   relative
@@ -81,8 +82,8 @@ const DetailTitle = tw.div`
     md:(
       block
       )`
-const Title = tw.h1`text-3xl md:text-4xl`
-const SubTitle = tw.h4`text-xs md:text-base text-gray-400`
+const Title = tw.h1`text-3xl px-12 md:(text-4xl px-0)`
+const SubTitle = tw.h4`text-xs px-12 text-gray-400 md:(text-base px-0)`
 const DetailSmallTitle = tw.h1`
   md:hidden
   mb-12
@@ -90,30 +91,30 @@ const DetailSmallTitle = tw.h1`
 
 const DetailActions = tw.div`
   flex flex-col space-y-6
-  mb-12
-  md:mb-12
+  mb-6
+  px-12
+  md:(px-0)
 `
 
 const VodCenterWrap = tw.div`col-span-3`
 const VodMeta = tw.div`flex text-base`
-const Genre = tw.span`text-sm text-c34`
+const Genre = tw.span`text-sm text-c34 px-6 md:(px-0)`
 const Rating = tw.span`text-c36 text-sm mr-2 flex items-center`
 const Year = tw.span`text-c34 text-sm mr-2`
 const Country = tw.span`text-c34 text-sm mr-2`
-const VodDescription = tw.div`
-  w-full
- space-x-1 leading-6 overflow-y-auto md:h-24 text-c20`
+const VodDescription = tw.div`w-full space-x-1 leading-6 overflow-y-auto text-c20 px-6
+                               md:(h-24 px-0)`
 
 const CastList = tw.div`text-xs md:text-base`
 
-const VodMetaTag = tw.div`flex space-x-4 mb-2.5 flex-wrap`
+const VodMetaTag = tw.div`flex space-x-4 mb-2.5 flex-wrap px-6 md:(px-0)`
 const VodMetaTagLabel = tw.div`text-gray-500`
 const VodMetaTagItems = tw.div``
 const About = tw.div`
   bg-c19
 `
 
-const SeasonWrap = tw.div`md:px-8 lg:px-10 xl:px-14 box-border overflow-hidden my-20`
+const SeasonWrap = tw.div`px-6 md:px-8 lg:px-10 xl:px-14 box-border overflow-hidden my-20`
 
 const AboutTitle = tw.div``
 
@@ -170,7 +171,11 @@ const VodDetail = ({ vod }: { vod: Vod }) => {
                     播放
                   </Button>
                   <Button onClick={addWatch}>
-                    <Icon name="check" tw="text-xs md:text-xl" type="fill" />
+                    <Icon
+                      name="check"
+                      tw="text-xs md:text-xl mr-2"
+                      type="fill"
+                    />
                     添加列表
                   </Button>
                 </DetailActions>
@@ -209,6 +214,20 @@ const VodDetail = ({ vod }: { vod: Vod }) => {
           </DetailBackground>
         </div>
         <SeasonWrap>
+          <Select
+            tw="mb-4 w-36"
+            onSelect={onSelect}
+            menuItemSelectedIcon=""
+            defaultValue={defaultSeasonId}
+          >
+            {vod.seasons.map((item) => {
+              return (
+                <Select.Option key={item.id} value={item.id}>
+                  {item.name}
+                </Select.Option>
+              )
+            })}
+          </Select>
           <Slick {...settings}>
             {vod.seasons.length > 0 ? (
               Array.isArray(seasonEpisodes) &&
@@ -221,9 +240,11 @@ const VodDetail = ({ vod }: { vod: Vod }) => {
                       tw="mr-1 sm:mr-2 md:mr-3 mb-2"
                     />
                     <div tw="mx-0.5">
-                      <div tw="text-c32">{episode.episodeNumber}</div>
-                      <div tw="text-c31">{episode.title}</div>
-                      <div tw="text-c34">{episode.introduce}</div>
+                      <div tw="text-c32 text-xs">
+                        第 {episode.episodeNumber} 集
+                      </div>
+                      <div tw="text-c31 text-base">{episode.title}</div>
+                      <div tw="text-c34 text-sm">{episode.introduce}</div>
                     </div>
                   </div>
                 )
