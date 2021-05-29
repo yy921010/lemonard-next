@@ -4,9 +4,9 @@ import tw, { styled, css } from 'twin.macro'
 import Icon from '../Icon'
 
 const ArrowButtonWrap = styled.button(() => [
-  tw`z-10 bg-black bg-opacity-50`,
+  tw`z-10 bg-black bg-opacity-50 rounded-full`,
   css`
-    height: calc(100% - 34px);
+    /* height: calc(100% - 34px); */
   `,
 ])
 const NextArrow: React.FC<CustomArrowProps> = ({ className, onClick }) => {

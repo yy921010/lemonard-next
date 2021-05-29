@@ -8,12 +8,12 @@ interface ButtonProps {
   link?: boolean
   circle?: boolean
   size?: 'large' | 'small' | 'mini'
-  disable?: boolean
+  disabled?: boolean
   icon?: React.ReactNode
 }
 
 const Button = styled.button(
-  ({ primary, info, link, circle, size, disable, ghost }: ButtonProps) => [
+  ({ primary, info, link, circle, size, disabled, ghost }: ButtonProps) => [
     tw`inline-flex justify-center items-center cursor-pointer leading-none appearance-none box-border outline-none m-0 rounded
     text-c31 px-4 bg-c03 active:(outline-none) focus:(outline-none) h-9 md:h-11`,
     ghost
@@ -29,8 +29,8 @@ const Button = styled.button(
     circle
       ? tw`rounded-full w-8 h-8 p-0 md:(h-11 w-11) bg-white bg-opacity-10`
       : '',
-    disable
-      ? tw`text-gray-600 cursor-not-allowed border-none bg-gray-800 hover:(bg-gray-800)`
+    disabled
+      ? tw`text-c20 cursor-not-allowed border-none bg-c23 hover:(bg-c23 text-c20)`
       : '',
     size === 'large'
       ? [

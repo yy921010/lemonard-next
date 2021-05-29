@@ -159,7 +159,7 @@ const VodDetail = ({ vod }: { vod: Vod }) => {
                   <SubTitle>{vod.originTitle}</SubTitle>
                 </DetailSmallTitle>
                 <DetailActions>
-                  <Button primary>
+                  <Button disabled>
                     <Icon
                       name="play"
                       tw="text-xs mr-2 md:text-xl"
@@ -168,7 +168,7 @@ const VodDetail = ({ vod }: { vod: Vod }) => {
                     />
                     播放
                   </Button>
-                  <Button onClick={addWatch}>
+                  <Button disabled onClick={addWatch}>
                     <Icon
                       name="check"
                       tw="text-xs md:text-xl mr-2"

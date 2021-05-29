@@ -1,10 +1,9 @@
 .slick-prev,
 .slick-next {
+  display: none;
   font-size: 0;
   line-height: 0;
   position: absolute;
-  display: block;
-  width: 54px;
   padding: 0;
   -webkit-transform: translate(0, -50%);
   -ms-transform: translate(0, -50%);
@@ -20,6 +19,7 @@
   .slick-prev,
   .slick-next {
     top: 37%;
+    display: block;
   }
 }
 
