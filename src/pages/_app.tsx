@@ -1,9 +1,9 @@
 import 'remixicon/fonts/remixicon.css'
+import '@/components/UIkit/Slick/slick.css'
+import '@/components/UIkit/Slick/slick-theme.css'
+import '@/components/UIkit/Select/index.scss'
 import { AppProps } from 'next/app'
 import { GlobalStyles } from '@/components'
-import '@/components/Slick/slick.css'
-import '@/components/Slick/slick-theme.css'
-import '@/components/Select/index.scss'
 import { ApolloProvider } from '@apollo/client'
 import { client } from '@/graphql'
 

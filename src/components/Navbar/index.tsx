@@ -12,7 +12,7 @@ import {
   MainMenus,
   MainMenuItem,
 } from './styled'
-import { Icon } from '..'
+import { Icon } from '../UIkit'
 
 const menus = [
   {

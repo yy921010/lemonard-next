@@ -1,5 +1,5 @@
 import React from 'react'
-import { Slick, Icon } from '@/components'
+import { Slick, Icon } from '@/components/UIkit'
 import tw from 'twin.macro'
 
 export interface SlickItem {

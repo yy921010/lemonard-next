@@ -1,6 +1,6 @@
 import 'twin.macro'
 import React from 'react'
-import { Icon } from '@/components'
+import { Icon } from '@/components/UIkit'
 
 const footer: React.FC = () => {
   const linkIcon = ['mail', 'rss', 'github']
