@@ -49,6 +49,31 @@ const settings = {
     },
   ],
 }
+
+const castCrewSettings = {
+  dots: false,
+  infinite: false,
+  speed: 500,
+  slidesToShow: 10,
+  slidesToScroll: 10,
+  initialSlide: 0,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 10,
+        slidesToScroll: 10,
+      },
+    },
+    {
+      breakpoint: 758,
+      settings: {
+        slidesToShow: 5,
+        slidesToScroll: 5,
+      },
+    },
+  ],
+}
 const DetailBackground = styled.div(({ background }: BackgroundProps) => [
   tw`w-full bg-no-repeat bg-cover bg-center slashed-zero top-0 relative`,
   css`
@@ -57,45 +82,17 @@ const DetailBackground = styled.div(({ background }: BackgroundProps) => [
     padding-top: 56.25%;
   `,
 ])
-
-const DetailBaseInfo = tw.div`
-md:absolute
-w-full
-top-0 left-0 h-full md:px-12`
-
-const DetailMeta = tw.div`
-  relative
-  -bottom-3/4
-  md:(grid
-    grid-cols-5
-    gap-8
-    absolute
-    -bottom-10
-    )
+const DetailBaseInfo = tw.div`md:absolute w-full top-0 left-0 h-full md:px-12`
+const DetailMeta = tw.div`relative -bottom-3/4
+  md:(grid grid-cols-5 gap-8 absolute -bottom-10)
   xl:bottom-20
 `
-
-const DetailTitle = tw.div`
-    absolute
-    top-1/4
-    hidden
-    md:(
-      block
-      )`
+const DetailTitle = tw.div`absolute top-1/4 hidden
+    md:(block)`
 const Title = tw.h1`text-3xl px-12 md:(text-4xl px-0)`
 const SubTitle = tw.h4`text-xs px-12 text-gray-400 md:(text-base px-0)`
-const DetailSmallTitle = tw.h1`
-  md:hidden
-  mb-12
-`
-
-const DetailActions = tw.div`
-  flex flex-col space-y-6
-  mb-6
-  px-12
-  md:(px-0)
-`
-
+const DetailSmallTitle = tw.h1` md:hidden mb-12`
+const DetailActions = tw.div`flex flex-col space-y-6 mb-6 px-12 md:(px-0)`
 const VodCenterWrap = tw.div`col-span-3`
 const VodMeta = tw.div`flex text-base`
 const Genre = tw.span`text-sm text-c34 px-6 md:(px-0)`
@@ -106,17 +103,18 @@ const VodDescription = tw.div`w-full space-x-1 leading-6 overflow-y-auto text-c2
                                md:(h-24 px-0)`
 
 const CastList = tw.div`text-xs md:text-base`
-
 const VodMetaTag = tw.div`flex space-x-4 mb-2.5 flex-wrap px-6 md:(px-0)`
 const VodMetaTagLabel = tw.div`text-gray-500`
 const VodMetaTagItems = tw.div``
-const About = tw.div`
-  bg-c19
-`
-
 const SeasonWrap = tw.div`px-6 md:px-8 lg:px-10 xl:px-14 box-border overflow-hidden my-20`
-
-const AboutTitle = tw.div``
+const CastCrewWrapper = tw.div`px-6 md:px-8 lg:px-10 xl:px-14 box-border overflow-hidden my-20`
+const CastCrewTitle = tw.div`text-base mb-5`
+const About = tw.div`bg-c19 px-6 py-7`
+const AboutTitle = tw.div`text-xl mb-1.5`
+const AboutIntroduce = tw.div`text-c20 text-xs mb-8`
+const InforMation = tw.div`text-xl mb-4`
+const AboutLabel = tw.div`text-xs`
+const AboutValue = tw.div`text-c20 text-xs mb-4`
 
 const VodDetail = ({ vod }: { vod: Vod }) => {
   const [seasonEpisodes, setSeasonEpisode] = useState<Episode[]>([])
@@ -277,7 +275,65 @@ const VodDetail = ({ vod }: { vod: Vod }) => {
             <></>
           )}
         </SlickList>
-        <About>关于</About>
+
+        <SlickList
+          id="ssss"
+          title="相似影片"
+          onMore={() => {
+            console.log(3)
+          }}
+        >
+          {vod.playSources.length > 0 ? (
+            vod.playSources.map((playSource) => {
+              return (
+                <div key={playSource.id} tw="cursor-pointer">
+                  <Poster
+                    src="getImageUrl(playSource.images, 10)"
+                    aspectRatio={16 / 9}
+                    tw="mx-0.5 sm:mx-1 md:mx-1.5 mb-2"
+                  />
+                </div>
+              )
+            })
+          ) : (
+            <></>
+          )}
+        </SlickList>
+
+        <CastCrewWrapper>
+          <CastCrewTitle>演职人员</CastCrewTitle>
+          <Slick {...castCrewSettings}>
+            {vod.castStaffs.length > 0 ? (
+              vod.castStaffs.map((castCrew) => {
+                return (
+                  <div key={castCrew.id} tw="cursor-pointer">
+                    <Poster
+                      src={getImageUrl(castCrew.images, 10)}
+                      aspectRatio={1 / 1}
+                      tw="mx-0.5 sm:mx-1 md:mx-1.5 mb-2"
+                    />
+                    <div tw="mx-0.5">
+                      <div tw="text-c20 text-sm text-center">
+                        {castCrew.name}
+                      </div>
+                    </div>
+                  </div>
+                )
+              })
+            ) : (
+              <></>
+            )}
+          </Slick>
+        </CastCrewWrapper>
+        <About>
+          <AboutTitle>关于 《{vod.title}》</AboutTitle>
+          <AboutIntroduce>{vod.introduce}</AboutIntroduce>
+          <InforMation>基本信息</InforMation>
+          <AboutLabel>类别</AboutLabel>
+          <AboutValue>{vod.genres.map((genre) => `${genre.name} `)}</AboutValue>
+          <AboutLabel>发行年份</AboutLabel>
+          <AboutValue>{vod.year}</AboutValue>
+        </About>
       </Layout>
     </>
   )

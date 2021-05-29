@@ -13,6 +13,7 @@ export interface PosterProp {
 const PosterWrap = styled.div(({ aspectRatio = 1 / 1 }: PosterProp) => {
   return [
     tw`bg-no-repeat bg-center flex-shrink-0 bg-cover relative bg-black rounded-md overflow-hidden shadow-xl`,
+    aspectRatio === 1 ? tw`rounded-full` : '',
     css`
       aspect-ratio: ${aspectRatio};
       &:before {

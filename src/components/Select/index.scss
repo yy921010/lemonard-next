@@ -18,14 +18,14 @@
   animation: rcSelectLoadingIcon 0.5s infinite;
 }
 .rc-select {
-  .rc-select-selection-placeholder{
+  .rc-select-selection-placeholder {
     opacity: 0.4;
     pointer-events: none;
   }
-  .rc-select-selection-search-input{
+  .rc-select-selection-search-input {
     appearance: none;
     cursor: pointer;
-    &::-webkit-search-cancel-button{
+    &::-webkit-search-cancel-button {
       display: none;
       appearance: none;
     }
@@ -42,7 +42,8 @@
     .rc-select-selection-search-input {
       width: 100%;
     }
-    .rc-select-selection-item,.rc-select-selection-placeholder{
+    .rc-select-selection-item,
+    .rc-select-selection-placeholder {
       position: absolute;
       top: 50%;
       left: 50%;
@@ -50,10 +51,10 @@
       pointer-events: none;
     }
   }
-  &:not(.rc-select-customize-input){
+  &:not(.rc-select-customize-input) {
     .rc-select-selector {
       border-radius: 4px;
-      background-color: rgba(255,255,255,0.1);
+      background-color: rgba(255, 255, 255, 0.1);
       .rc-select-selection-search-input {
         border: none;
         outline: none;
@@ -64,8 +65,7 @@
   }
 }
 
-
-.rc-select-multiple{
+.rc-select-multiple {
   .rc-select-selector {
     display: flex;
     flex-wrap: wrap;
@@ -95,7 +95,8 @@
       position: relative;
       max-width: 100%;
     }
-    .rc-select-selection-search-input,.rc-select-selection-search-mirror {
+    .rc-select-selection-search-input,
+    .rc-select-selection-search-mirror {
       padding: 1px;
       font-family: system-ui;
     }
@@ -150,9 +151,9 @@
 .rc-select-dropdown {
   min-height: 100px;
   position: absolute;
-  color:white;
-  background: rgba(0,0,0,0.3);
-  backdrop-filter:blur(8px);
+  color: white;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
   cursor: pointer;
   border-radius: 4px;
   z-index: 4000;
@@ -184,7 +185,7 @@
   pointer-events: none;
 }
 .rc-select-item-option-active {
-  background: rgba(255,255,255,.1);
+  background: rgba(255, 255, 255, 0.1);
 }
 .rc-select-item-option-disabled {
   color: #999;
