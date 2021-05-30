@@ -1,3 +1,7 @@
+export enum ImageTypes {
+  MAIN = 14,
+  CAST = 10,
+}
 export interface Image {
   href: string
   type: number

@@ -7,6 +7,8 @@ import {
   Icon,
   Poster,
   Select,
+  MovieCard,
+  PosterAspectRatio,
 } from '@/components'
 import { GetServerSideProps } from 'next'
 import tw, { styled, css } from 'twin.macro'
@@ -99,7 +101,7 @@ const Genre = tw.span`text-sm text-c34 px-6 md:(px-0)`
 const Rating = tw.span`text-c36 text-sm mr-2 flex items-center`
 const Year = tw.span`text-c34 text-sm mr-2`
 const Country = tw.span`text-c34 text-sm mr-2`
-const VodDescription = tw.div`w-full space-x-1 leading-6 overflow-y-auto text-c20 px-6
+const VodDescription = tw.div`w-full space-x-1 leading-6 overflow-y-auto text-c20 px-6 display[-webkit-box] -webkit-box-orient[vertical] -webkit-line-clamp[4] text-overflow[ellipsis] overflow-hidden
                                md:(h-24 px-0)`
 
 const CastList = tw.div`text-xs md:text-base`
@@ -231,20 +233,14 @@ const VodDetail = ({ vod }: { vod: Vod }) => {
               Array.isArray(seasonEpisodes) &&
               seasonEpisodes.map((episode) => {
                 return (
-                  <div key={episode.id} tw="cursor-pointer">
-                    <Poster
-                      src={getImageUrl(episode.images, 16)}
-                      aspectRatio={16 / 9}
-                      tw="mr-1 sm:mr-2 md:mr-3 mb-2"
-                    />
-                    <div tw="mx-0.5">
-                      <div tw="text-c32 text-xs">
-                        第 {episode.episodeNumber} 集
-                      </div>
-                      <div tw="text-c31 text-base">{episode.title}</div>
-                      <div tw="text-c34 text-sm">{episode.introduce}</div>
-                    </div>
-                  </div>
+                  <MovieCard
+                    key={episode.id}
+                    src={getImageUrl(episode.images, 16)}
+                    tw="cursor-pointer"
+                    title={episode.title}
+                    subtitle={episode.introduce}
+                    metaTitle={`第 ${episode.episodeNumber} 集`}
+                  />
                 )
               })
             ) : (
@@ -306,18 +302,13 @@ const VodDetail = ({ vod }: { vod: Vod }) => {
             {vod.castStaffs.length > 0 ? (
               vod.castStaffs.map((castCrew) => {
                 return (
-                  <div key={castCrew.id} tw="cursor-pointer">
-                    <Poster
-                      src={getImageUrl(castCrew.images, 10)}
-                      aspectRatio={1 / 1}
-                      tw="mx-0.5 sm:mx-1 md:mx-1.5 mb-2"
-                    />
-                    <div tw="mx-0.5">
-                      <div tw="text-c20 text-sm text-center">
-                        {castCrew.name}
-                      </div>
-                    </div>
-                  </div>
+                  <MovieCard
+                    aspectRatio={PosterAspectRatio.square}
+                    key={castCrew.id}
+                    src={getImageUrl(castCrew.images, 10)}
+                    tw="cursor-pointer"
+                    subtitle={castCrew.name}
+                  />
                 )
               })
             ) : (

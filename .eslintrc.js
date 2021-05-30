@@ -55,6 +55,8 @@ module.exports = {
       'error',
       { functions: false, classes: false, variables: true },
     ],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"]
   },
   settings: {
     'import/resolver': {
