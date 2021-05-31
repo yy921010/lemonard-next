@@ -40,6 +40,7 @@
     "rc-select": "^12.1.10",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-slick": "^0.28.1",
     "remixicon": "^2.5.0",
     "sass": "^1.34.0",
