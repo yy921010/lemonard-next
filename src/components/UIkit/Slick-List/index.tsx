@@ -49,8 +49,8 @@ function SlickList({ title, id, onMore, children }: SlickProps): JSX.Element {
       {
         breakpoint: 758,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToShow: 2,
+          slidesToScroll: 2,
         },
       },
     ],
