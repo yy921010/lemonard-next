@@ -21,7 +21,7 @@ interface VodQueryData {
   vod: Vod
 }
 interface VodQueryVar {
-  id: string
+  id: number
 }
 interface BackgroundProps {
   background?: string
@@ -336,7 +336,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query } = context
   const { data } = await client.query<VodQueryData, VodQueryVar>({
     query: QUERY_VOD_DETAIL,
-    variables: { id: query.id as string },
+    variables: { id: +query.id as number },
   })
   return {
     props: {

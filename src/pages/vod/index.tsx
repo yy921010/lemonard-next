@@ -1,40 +1,41 @@
 import { Layout, MovieCard } from '@/components'
 import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
-import { Vod } from '@/interfaces'
-import { QUERY_VODS } from '@/graphql'
+import { CursorResult } from '@/interfaces'
+import { QUERY_VODS_BY_CURSOR } from '@/graphql'
 import 'twin.macro'
 import { getImageUrl } from '@/utils'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 interface VodData {
-  vods: {
-    data: Vod[]
-    total: number
-  }
+  vodCursor: CursorResult
 }
 interface VodListVar {
-  offset: number
-  limit: number
+  cursor: string
 }
 
 function VodList(): JSX.Element {
   const route = useRouter()
 
-  const { data, fetchMore } = useQuery<VodData, VodListVar>(QUERY_VODS, {
-    variables: { offset: 0, limit: 20 },
-  })
+  const { data, fetchMore } =
+    useQuery<VodData, VodListVar>(QUERY_VODS_BY_CURSOR)
+
+  const nodes =
+    data?.vodCursor?.edges.map((edge) => {
+      return edge.node
+    }) || []
+
+  const { pageInfo } = data?.vodCursor || {}
 
   const showMore = (vodId: string) => {
     route.push(`/vod/${vodId}`)
   }
 
   const fetchMoreHandle = () => {
-    if (fetchMore) {
+    if (fetchMore && pageInfo.hasNextPage) {
       fetchMore({
         variables: {
-          offset:
-            data?.vods?.data?.length - 1 < 0 ? 0 : data?.vods?.data?.length - 1,
+          cursor: pageInfo.endCursor,
         },
       })
     }
@@ -43,9 +44,9 @@ function VodList(): JSX.Element {
   return (
     <Layout>
       <InfiniteScroll
-        dataLength={data?.vods?.data?.length || 0}
+        dataLength={nodes.length || 0}
         next={fetchMoreHandle}
-        hasMore
+        hasMore={pageInfo?.hasNextPage}
         loader={<h4>Loading...</h4>}
         endMessage={
           <p style={{ textAlign: 'center' }}>
@@ -54,23 +55,24 @@ function VodList(): JSX.Element {
         }
       >
         <div
-          tw="px-6 mt-14 grid grid-cols-2 gap-y-16
-        md:(px-6 grid-cols-4)
-        lg:(grid-cols-5 px-10)
-        xl:(grid-cols-5 px-14)"
+          tw="px-6 mt-14 grid grid-cols-2 gap-y-16 cursor-pointer
+              md:(px-6 grid-cols-4)
+              lg:(grid-cols-5 px-10)
+              xl:(grid-cols-5 px-14)"
         >
-          {data?.vods?.data.map((vod) => {
-            return (
-              <MovieCard
-                key={vod.id}
-                id={vod.id}
-                onClick={showMore}
-                src={getImageUrl(vod.images, 14)}
-                title={vod.title}
-                subtitle={vod.subtitle}
-              />
-            )
-          })}
+          {Array.isArray(nodes) &&
+            nodes.map((vod) => {
+              return (
+                <MovieCard
+                  key={vod.guid}
+                  id={vod.id}
+                  onClick={showMore}
+                  src={getImageUrl(vod.images, 14)}
+                  title={vod.title}
+                  subtitle={vod.subtitle}
+                />
+              )
+            })}
         </div>
       </InfiniteScroll>
     </Layout>

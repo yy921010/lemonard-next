@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 export const QUERY_VOD_DETAIL = gql`
-  query getVodById($id: String!) {
+  query getVodById($id: Int!) {
     vod(id: $id) {
       id
       year
@@ -82,6 +82,34 @@ export const QUERY_VODS = gql`
           name
           id
         }
+      }
+    }
+  }
+`
+
+export const QUERY_VODS_BY_CURSOR = gql`
+  query getVodByCursor($cursor: String) {
+    vodCursor(first: 20, after: $cursor) {
+      edges {
+        node {
+          id
+          title
+          subtitle
+          guid
+          images {
+            href
+            type
+          }
+          genres {
+            name
+            id
+          }
+        }
+        cursor
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
       }
     }
   }

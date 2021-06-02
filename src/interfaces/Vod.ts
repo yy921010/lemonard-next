@@ -6,11 +6,13 @@ export interface Image {
   href: string
   type: number
   id: string
+  guid: string
 }
 
 export interface Genre {
   id?: string
   name?: string
+  guid: string
 }
 
 export interface Vod {
@@ -28,6 +30,7 @@ export interface Vod {
   seasons: Season[]
   playSources: PlaySources[]
   countries: Country[]
+  guid: string
 }
 
 export interface PlaySources {
@@ -36,11 +39,13 @@ export interface PlaySources {
   duration: number
   url: string
   quality: number
+  guid: string
 }
 
 export interface Country {
   id: string
   name: string
+  guid: string
 }
 
 export interface CastStaff {
@@ -48,6 +53,7 @@ export interface CastStaff {
   name: string
   introduce: string
   images: Image[]
+  guid: string
 }
 
 export interface Season {
@@ -55,6 +61,7 @@ export interface Season {
   name: string
   introduce: string
   episodes: Episode[]
+  guid: string
 }
 
 export interface Episode {
@@ -64,4 +71,5 @@ export interface Episode {
   episodeNumber: number
   images: Image[]
   playSources: PlaySources[]
+  guid: string
 }
