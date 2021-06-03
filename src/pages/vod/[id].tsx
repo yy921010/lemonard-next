@@ -93,7 +93,7 @@ const DetailTitle = tw.div`absolute top-1/4 hidden
     md:(block)`
 const Title = tw.h1`text-3xl px-12 md:(text-4xl px-0)`
 const SubTitle = tw.h4`text-xs px-12 text-gray-400 md:(text-base px-0)`
-const DetailSmallTitle = tw.h1` md:hidden mb-12`
+const DetailSmallTitle = tw.div` md:hidden mb-12`
 const DetailActions = tw.div`flex flex-col space-y-6 mb-6 px-12 md:(px-0)`
 const VodCenterWrap = tw.div`col-span-3`
 const VodMeta = tw.div`flex text-base`

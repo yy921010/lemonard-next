@@ -15,20 +15,35 @@ import {
 import { Icon } from '../UIkit'
 
 const menus = [
+  // {
+  //   url: '/home',
+  //   text: '立即观看',
+  //   id: '2',
+  // },
+  // {
+  //   url: '/home',
+  //   text: '直播',
+  //   id: '6',
+  // },
+  // {
+  //   url: '/home',
+  //   text: '节目单',
+  //   id: '6',
+  // },
+  // {
+  //   url: '/film',
+  //   text: '电影',
+  //   id: '4',
+  // },
+  // {
+  //   url: '/series',
+  //   text: '电视剧',
+  //   id: '1',
+  // },
   {
-    url: '/home',
-    text: '主页',
-    id: '2',
-  },
-  {
-    url: '/film',
-    text: '电影',
-    id: '4',
-  },
-  {
-    url: '/series',
-    text: '电视剧',
-    id: '1',
+    url: '/vod',
+    text: '资源库',
+    id: '5',
   },
 ]
 
