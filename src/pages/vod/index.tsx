@@ -1,8 +1,8 @@
 import { HeadMeta, Layout, MovieCard } from '@/components'
 import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
-import { CursorResult } from '@/interfaces'
-import { QUERY_VODS_BY_CURSOR } from '@/graphql'
+import { CursorResult, ImgType } from '@/interfaces'
+import { QUERY_VODS_BY_CURSOR, QUERY_VOD_DETAIL } from '@/graphql'
 import 'twin.macro'
 import { getImageUrl } from '@/utils'
 import InfiniteScroll from 'react-infinite-scroll-component'
@@ -68,10 +68,10 @@ function VodList(): JSX.Element {
             {Array.isArray(nodes) &&
               nodes.map((vod) => {
                 return (
-                  <Link href={`/vod/${vod.id}`} key={vod.guid} passHref>
+                  <Link href={`/vod/${vod.id}`} key={vod.id} passHref>
                     <MovieCard
                       id={vod.id}
-                      src={getImageUrl(vod.images, 14)}
+                      src={getImageUrl(vod.images, ImgType.MAIN)}
                       title={vod.title}
                       subtitle={vod.subtitle}
                     />

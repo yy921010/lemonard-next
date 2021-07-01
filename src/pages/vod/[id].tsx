@@ -13,15 +13,17 @@ import {
 import { GetServerSideProps } from 'next'
 import tw, { styled, css } from 'twin.macro'
 import { QUERY_VOD_DETAIL, client } from '@/graphql'
-import { Episode, Vod } from '@/interfaces'
+import { Episode, ImgType, Vod, VodType } from '@/interfaces'
 import { useEffect, useState } from 'react'
 import { getImageUrl } from '@/utils'
+import { useQuery } from '@apollo/client'
+import { useRouter } from 'next/router'
 
 interface VodQueryData {
   vod: Vod
 }
 interface VodQueryVar {
-  id: number
+  id: string
 }
 interface BackgroundProps {
   background?: string
@@ -123,7 +125,7 @@ const VodDetail = ({ vod }: { vod: Vod }) => {
   const [defaultSeasonId, setDefaultSeasonId] = useState<string>('' as string)
 
   useEffect(() => {
-    if (vod.type === 1 && vod.seasons.length > 0) {
+    if (vod.type === VodType.SERIES && vod.seasons.length > 0) {
       const [firstSeason] = vod.seasons
       setSeasonEpisode(firstSeason.episodes)
       setDefaultSeasonId(firstSeason.id)
@@ -149,7 +151,9 @@ const VodDetail = ({ vod }: { vod: Vod }) => {
       <HeadMeta title={vod.title} />
       <Layout>
         <div tw="relative">
-          <DetailBackground background={getImageUrl(vod.images, 14)}>
+          <DetailBackground
+            background={getImageUrl(vod.images, ImgType.DETAIL)}
+          >
             <DetailBaseInfo>
               <DetailTitle>
                 <Title>{vod.title}</Title>
@@ -223,7 +227,7 @@ const VodDetail = ({ vod }: { vod: Vod }) => {
             {vod.seasons.map((item) => {
               return (
                 <Select.Option key={item.id} value={item.id}>
-                  {item.name}
+                  {item.title}
                 </Select.Option>
               )
             })}
@@ -231,18 +235,20 @@ const VodDetail = ({ vod }: { vod: Vod }) => {
           <Slick {...settings}>
             {vod.seasons.length > 0 ? (
               Array.isArray(seasonEpisodes) &&
-              seasonEpisodes.map((episode) => {
-                return (
-                  <MovieCard
-                    key={episode.id}
-                    src={getImageUrl(episode.images, 16)}
-                    tw="cursor-pointer"
-                    title={episode.title}
-                    subtitle={episode.introduce}
-                    metaTitle={`第 ${episode.episodeNumber} 集`}
-                  />
-                )
-              })
+              seasonEpisodes
+                .sort((item, item2) => item.episodeNumber - item2.episodeNumber)
+                .map((episode) => {
+                  return (
+                    <MovieCard
+                      key={episode.id}
+                      src={getImageUrl(episode.images, ImgType.MAIN)}
+                      tw="cursor-pointer"
+                      title={episode.title}
+                      subtitle={episode.introduce}
+                      metaTitle={`第 ${episode.episodeNumber} 集`}
+                    />
+                  )
+                })
             ) : (
               <></>
             )}
@@ -300,17 +306,22 @@ const VodDetail = ({ vod }: { vod: Vod }) => {
           <CastCrewTitle>演职人员</CastCrewTitle>
           <Slick {...castCrewSettings}>
             {vod.castStaffs.length > 0 ? (
-              vod.castStaffs.map((castCrew) => {
-                return (
-                  <MovieCard
-                    aspectRatio={PosterAspectRatio.square}
-                    key={castCrew.id}
-                    src={getImageUrl(castCrew.images, 10)}
-                    tw="cursor-pointer"
-                    subtitle={castCrew.name}
-                  />
-                )
-              })
+              vod.castStaffs
+                // .sort((a, b) => {
+                //   return a.order - b.order
+                // })
+                .map((castCrew) => {
+                  return (
+                    <MovieCard
+                      aspectRatio={PosterAspectRatio.square}
+                      key={castCrew.id}
+                      src={getImageUrl(castCrew.images, ImgType.MAIN)}
+                      tw="cursor-pointer text-center"
+                      subtitle={castCrew.characters[0].name}
+                      title={castCrew.name}
+                    />
+                  )
+                })
             ) : (
               <></>
             )}
@@ -334,9 +345,10 @@ export default VodDetail
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query } = context
+  console.log('query>>>>', query)
   const { data } = await client.query<VodQueryData, VodQueryVar>({
     query: QUERY_VOD_DETAIL,
-    variables: { id: +query.id as number },
+    variables: { id: query.id as string },
   })
   return {
     props: {

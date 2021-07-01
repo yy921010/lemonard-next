@@ -3,7 +3,7 @@ import { ApolloClient, InMemoryCache } from '@apollo/client'
 import { relayStylePagination } from '@apollo/client/utilities'
 
 const client = new ApolloClient({
-  uri: 'http://192.168.5.205:3000/graphql',
+  uri: 'http://127.0.0.1:3000/graphql',
   cache: new InMemoryCache({
     typePolicies: {
       Query: {

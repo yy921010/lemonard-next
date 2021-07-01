@@ -1,6 +1,6 @@
 /// <reference types="next" />
 /// <reference types="next/types/global" />
-
+/// <reference types="next/image-types/global" />
 // twin.d.ts
 import 'twin.macro'
 import styledImport, { CSSProp, css as cssImport } from 'styled-components'

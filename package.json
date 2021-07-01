@@ -35,7 +35,7 @@
     "ahooks": "^2.9.4",
     "autoprefixer": "^10.2.1",
     "graphql": "^15.5.0",
-    "next": "^10.2.3",
+    "next": "^11.0.1",
     "postcss": "^8.2.4",
     "rc-select": "^12.1.10",
     "react": "^17.0.1",
@@ -46,8 +46,8 @@
     "sass": "^1.34.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.2.1",
-    "tailwindcss": "^2.1.2",
-    "twin.macro": "^2.4.2"
+    "tailwindcss": "^2.2.4",
+    "twin.macro": "^2.5.0"
   },
   "devDependencies": {
     "@testing-library/react": "^10.0.1",
@@ -80,6 +80,6 @@
     "lint-staged": "^10.0.10",
     "prettier": "^2.2.1",
     "react-is": "^16.13.1",
-    "typescript": "^4.1.3"
+    "typescript": "^4.3.5"
   }
 }

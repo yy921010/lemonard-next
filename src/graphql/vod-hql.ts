@@ -1,65 +1,57 @@
 import { gql } from '@apollo/client'
 
 export const QUERY_VOD_DETAIL = gql`
-  query getVodById($id: Int!) {
+  query getVodById($id: String!) {
     vod(id: $id) {
       id
-      year
-      title
       originTitle
-      type
+      title
+      subtitle
       introduce
-      genres {
-        name
+      rating
+      year
+      images {
         id
+        href
+        type
       }
       countries {
-        name
         id
+        name
+        countryKey
       }
-      rating
-      images {
-        type
-        href
+      genres {
+        id
+        name
       }
       playSources {
-        id
-        url
-        quality
-        type
         duration
-      }
-      castStaffs {
-        name
-        id
-        introduce
-        images {
-          id
-          href
-          type
-        }
+        url
       }
       seasons {
         id
-        name
-        introduce
+        title
         episodes {
           id
           title
           episodeNumber
           introduce
           images {
-            id
+            type
             href
-            type
           }
-          playSources {
-            id
-            url
-            quality
-            type
-            duration
-          }
+        }
+      }
+      castStaffs {
+        id
+        name
+        order
+        images {
+          href
+          type
+        }
+        characters {
+          name
         }
       }
     }
@@ -95,7 +87,6 @@ export const QUERY_VODS_BY_CURSOR = gql`
           id
           title
           subtitle
-          guid
           images {
             href
             type
