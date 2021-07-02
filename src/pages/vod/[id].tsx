@@ -15,9 +15,7 @@ import tw, { styled, css } from 'twin.macro'
 import { QUERY_VOD_DETAIL, client } from '@/graphql'
 import { Episode, ImgType, Vod, VodType } from '@/interfaces'
 import { useEffect, useState } from 'react'
-import { getImageUrl } from '@/utils'
-import { useQuery } from '@apollo/client'
-import { useRouter } from 'next/router'
+import { BackdropSizes, getImageUrl, StillSizes } from '@/utils'
 
 interface VodQueryData {
   vod: Vod
@@ -107,7 +105,7 @@ const VodDescription = tw.div`w-full space-x-1 leading-6 overflow-y-auto text-c2
                                md:(h-24 px-0)`
 
 const CastList = tw.div`text-xs md:text-base`
-const VodMetaTag = tw.div`flex space-x-4 mb-2.5 flex-wrap px-6 md:(px-0)`
+const VodMetaTag = tw.div`flex space-x-4 mb-2.5 flex-wrap px-6 md:(px-0) overflow-hidden h-24`
 const VodMetaTagLabel = tw.div`text-gray-500`
 const VodMetaTagItems = tw.div``
 const SeasonWrap = tw.div`px-6 md:px-8 lg:px-10 xl:px-14 box-border overflow-hidden my-20`
@@ -152,7 +150,11 @@ const VodDetail = ({ vod }: { vod: Vod }) => {
       <Layout>
         <div tw="relative">
           <DetailBackground
-            background={getImageUrl(vod.images, ImgType.DETAIL)}
+            background={getImageUrl(
+              vod.images,
+              ImgType.DETAIL,
+              BackdropSizes.W1280
+            )}
           >
             <DetailBaseInfo>
               <DetailTitle>
@@ -217,111 +219,71 @@ const VodDetail = ({ vod }: { vod: Vod }) => {
             </DetailBaseInfo>
           </DetailBackground>
         </div>
-        <SeasonWrap>
-          <Select
-            tw="mb-4 w-36"
-            onSelect={onSelect}
-            menuItemSelectedIcon=""
-            defaultValue={defaultSeasonId}
-          >
-            {vod.seasons.map((item) => {
-              return (
-                <Select.Option key={item.id} value={item.id}>
-                  {item.title}
-                </Select.Option>
-              )
-            })}
-          </Select>
-          <Slick {...settings}>
-            {vod.seasons.length > 0 ? (
-              Array.isArray(seasonEpisodes) &&
-              seasonEpisodes
-                .sort((item, item2) => item.episodeNumber - item2.episodeNumber)
-                .map((episode) => {
+
+        {vod.type === VodType.SERIES ? (
+          <SeasonWrap>
+            <Select
+              tw="mb-4 w-36"
+              onSelect={onSelect}
+              menuItemSelectedIcon=""
+              defaultValue={defaultSeasonId}
+            >
+              {vod.seasons.map((item) => {
+                return (
+                  <Select.Option key={item.id} value={item.id}>
+                    {item.title}
+                  </Select.Option>
+                )
+              })}
+            </Select>
+            <SlickList
+              id="ssss"
+              title="片花"
+              onMore={() => {
+                console.log(3)
+              }}
+            >
+              {vod.playSources.length > 0 ? (
+                vod.playSources.map((playSource) => {
                   return (
-                    <MovieCard
-                      key={episode.id}
-                      src={getImageUrl(episode.images, ImgType.MAIN)}
-                      tw="cursor-pointer"
-                      title={episode.title}
-                      subtitle={episode.introduce}
-                      metaTitle={`第 ${episode.episodeNumber} 集`}
-                    />
+                    <div key={playSource.id} tw="cursor-pointer">
+                      <Poster
+                        src="getImageUrl(playSource.images, 10)"
+                        aspectRatio={16 / 9}
+                        tw="mx-0.5 sm:mx-1 md:mx-1.5 mb-2"
+                      />
+                    </div>
                   )
                 })
-            ) : (
-              <></>
-            )}
-          </Slick>
-        </SeasonWrap>
-        <SlickList
-          id="ssss"
-          title="片花"
-          onMore={() => {
-            console.log(3)
-          }}
-        >
-          {vod.playSources.length > 0 ? (
-            vod.playSources.map((playSource) => {
-              return (
-                <div key={playSource.id} tw="cursor-pointer">
-                  <Poster
-                    src="getImageUrl(playSource.images, 10)"
-                    aspectRatio={16 / 9}
-                    tw="mx-0.5 sm:mx-1 md:mx-1.5 mb-2"
-                  />
-                </div>
-              )
-            })
-          ) : (
-            <></>
-          )}
-        </SlickList>
-
-        <SlickList
-          id="ssss"
-          title="相似影片"
-          onMore={() => {
-            console.log(3)
-          }}
-        >
-          {vod.playSources.length > 0 ? (
-            vod.playSources.map((playSource) => {
-              return (
-                <div key={playSource.id} tw="cursor-pointer">
-                  <Poster
-                    src="getImageUrl(playSource.images, 10)"
-                    aspectRatio={16 / 9}
-                    tw="mx-0.5 sm:mx-1 md:mx-1.5 mb-2"
-                  />
-                </div>
-              )
-            })
-          ) : (
-            <></>
-          )}
-        </SlickList>
+              ) : (
+                <></>
+              )}
+            </SlickList>
+          </SeasonWrap>
+        ) : (
+          []
+        )}
 
         <CastCrewWrapper>
           <CastCrewTitle>演职人员</CastCrewTitle>
           <Slick {...castCrewSettings}>
             {vod.castStaffs.length > 0 ? (
-              vod.castStaffs
-                // .sort((a, b) => {
-                //   return a.order - b.order
-                // })
-                .map((castCrew) => {
-                  return (
-                    <MovieCard
-                      aspectRatio={PosterAspectRatio.square}
-                      key={castCrew.id}
-                      src={getImageUrl(castCrew.images, ImgType.MAIN)}
-                      tw="cursor-pointer text-center"
-                      subtitle={castCrew.characters[0].name}
-                      title={castCrew.name}
-                    />
-                  )
-                })
+              vod.castStaffs.map((castCrew) => {
+                return (
+                  <MovieCard
+                    aspectRatio={PosterAspectRatio.vertical}
+                    key={castCrew.id}
+                    src={getImageUrl(
+                      castCrew.images,
+                      ImgType.MAIN,
+                      StillSizes.W300
+                    )}
+                    tw="cursor-pointer text-center"
+                    subtitle={castCrew.characters[0].name}
+                    title={castCrew.name}
+                  />
+                )
+              })
             ) : (
               <></>
             )}

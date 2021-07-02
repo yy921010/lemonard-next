@@ -3,7 +3,8 @@ import { Poster } from '../UIkit'
 import 'twin.macro'
 
 export enum PosterAspectRatio {
-  vertical = 16 / 9,
+  horizontal = 16 / 9,
+  vertical = 3 / 4,
   square = 1,
 }
 
@@ -62,7 +63,7 @@ MovieCard.defaultProps = {
   metaTitle: '',
   title: '',
   subtitle: '',
-  aspectRatio: PosterAspectRatio.vertical,
+  aspectRatio: PosterAspectRatio.horizontal,
 }
 
 export default MovieCard

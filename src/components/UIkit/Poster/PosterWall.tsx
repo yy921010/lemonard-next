@@ -1,7 +1,7 @@
 import React from 'react'
 import tw from 'twin.macro'
 import { Vod, Genre, ImgType } from '@/interfaces/Vod'
-import { getImageUrl } from '@/utils'
+import { BackdropSizes, getImageUrl } from '@/utils'
 import Poster from './index'
 
 export interface PosterWallProps {
@@ -34,7 +34,7 @@ const PosterWall: React.FC<PosterWallProps> = ({ vods, onMoreInfo }) => {
               }}
             >
               <Poster
-                src={getImageUrl(vod.images, ImgType.MAIN)}
+                src={getImageUrl(vod.images, ImgType.MAIN, BackdropSizes.W780)}
                 aspectRatio={16 / 9}
                 tw="mx-0.5 sm:mx-1 md:mx-1.5 mb-2"
               />

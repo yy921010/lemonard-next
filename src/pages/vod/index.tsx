@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client'
 import { CursorResult, ImgType } from '@/interfaces'
 import { QUERY_VODS_BY_CURSOR, QUERY_VOD_DETAIL } from '@/graphql'
 import 'twin.macro'
-import { getImageUrl } from '@/utils'
+import { BackdropSizes, getImageUrl, StillSizes } from '@/utils'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import React from 'react'
 import Link from 'next/link'
@@ -71,7 +71,11 @@ function VodList(): JSX.Element {
                   <Link href={`/vod/${vod.id}`} key={vod.id} passHref>
                     <MovieCard
                       id={vod.id}
-                      src={getImageUrl(vod.images, ImgType.MAIN)}
+                      src={getImageUrl(
+                        vod.images,
+                        ImgType.MAIN,
+                        BackdropSizes.W780
+                      )}
                       title={vod.title}
                       subtitle={vod.subtitle}
                     />
